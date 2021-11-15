@@ -8,6 +8,10 @@ type Articles = {
     endDate: string,
     pageNumber: number,
     results: string,
+    headline: String,
+    image: string,
+    keywaords: string,
+    webUrl: string,
 };
 
 class NytAppIndex extends React.Component<{}, Articles> {
@@ -20,6 +24,10 @@ class NytAppIndex extends React.Component<{}, Articles> {
             endDate: '',
             pageNumber: 0,
             results: '',
+            headline: '',
+            image: '',
+            keywaords: '',
+            webUrl: '',
         }
     }
 
@@ -32,9 +40,15 @@ class NytAppIndex extends React.Component<{}, Articles> {
             .then(res => res.json())
             .then(data => {
                 this.setState({
-                    results: data.res.docs
+                    results: data.response.docs,
+                    headline: data.response.docs.headline,
+                    image: data.response.docs.multimedia,
+                    keywaords: data.response.docs.keywords,
+                    webUrl: data.response.docs.web_url,
                 })
-                console.log(data.res.docs);
+                console.log(data);
+                console.log(data.response.docs.headline.main);
+                console.log(data.response.docs.web_url);
             })
             .catch((err) => console.log(err));
     };
@@ -69,7 +83,7 @@ class NytAppIndex extends React.Component<{}, Articles> {
         return(
             <div>
                 <div>
-                    <form onSubmit={(e) => this.handleSubmit(e)}>
+                    <form className='form' onSubmit={(e) => this.handleSubmit(e)}>
                         <span>Enter a single search term (required) : </span>
                         <input type='text' name='search' onChange={(e) => this.setState({search: e.target.value})} required />
                         <br />
@@ -84,7 +98,14 @@ class NytAppIndex extends React.Component<{}, Articles> {
                     <div>
                         <button onClick={(e) => this.changePageNumber(e, 'down')}>Previous 10</button>
                         <button onClick={(e) => this.changePageNumber(e, 'up')}>Next 10</button>
-                        {this.state.results.length > 0 ? <NytApp results={this.state.results} changePage={this.changePageNumber} /> : null}
+                        {this.state.results.length > 0 ? <NytApp 
+                            results={this.state.results} 
+                            changePage={this.changePageNumber} 
+                            headline={this.state.headline}
+                            image={this.state.image}
+                            keywaords={this.state.keywaords}
+                            webUrl={this.state.webUrl}
+                        /> : null}
                     </div>
                 </div>
             </div>

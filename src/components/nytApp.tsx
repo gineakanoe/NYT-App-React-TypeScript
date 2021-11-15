@@ -8,7 +8,7 @@ const NytApp = (props: any) => {
                 return(
                     <div key={props._id}>
                         <h3>{props.headline.main}</h3>
-                        {props.multimedia.length > 1 ? <img alt='article' src={`http://www.nytimes.com/${result.multimedia[1].url}`} /> : ''}
+                        {props.multimedia.length > 1 ? <img alt='article' src={`http://www.nytimes.com/${props.multimedia[1].url}`} /> : ''}
                         <p>
                             {props.snippet}
                             <br />
