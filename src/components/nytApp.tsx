@@ -4,25 +4,24 @@ const NytApp = (props: any) => {
 
     return(
         <div>
-            <div>
-                <button onClick={(e) => changePage(e, 'down')}>Previous 10</button>
-                <button onClick={(e) => changePage(e, 'up')}>Next 10</button>
-            </div>
-
-            {results.map(result => {
+            {props.results.map((article: any, index: number) => {
                 return(
-                    <div key={result._id}>
-                        <h3>{result.headline.main}</h3>
-                        {result.multimedia.length > 1 ? <img alt='article' src={`http://www.nytimes.com/${result.multimedia[1].url}`} /> : ''}
+                    <div key={props._id}>
+                        <h3>{props.headline.main}</h3>
+                        {props.multimedia.length > 1 ? <img alt='article' src={`http://www.nytimes.com/${result.multimedia[1].url}`} /> : ''}
                         <p>
-                            {result.snippet}
+                            {props.snippet}
                             <br />
-                            {result.keywords.length > 0 ? ' Keywords: ' : ''}
+                            {props.keywords.length > 0 ? ' Keywords: ' : ''}
                         </p>
                         <ul>
-                            {result.keywords.map(keyword => <li key={keyword.value}>{keyword.value}</li>)}
+                            {props.keywords.map(
+                                (keyword: any) => (
+                                    <li key={keyword}>{keyword}</li>
+                                )
+                            )}
                         </ul>
-                        <a href={result.web_url}><button>Read It</button></a>
+                        <a href={props.web_url}><button>Read It</button></a>
                     </div>
                 );
             })}

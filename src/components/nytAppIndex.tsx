@@ -81,7 +81,11 @@ class NytAppIndex extends React.Component<{}, Articles> {
                         <br />
                         <button className='submit'>Submit search</button>
                     </form>
-                    {this.state.results.length > 0 ? <NytApp results={this.state.results} changePage={this.changePageNumber} /> : null}
+                    <div>
+                        <button onClick={(e) => this.changePageNumber(e, 'down')}>Previous 10</button>
+                        <button onClick={(e) => this.changePageNumber(e, 'up')}>Next 10</button>
+                        {this.state.results.length > 0 ? <NytApp results={this.state.results} changePage={this.changePageNumber} /> : null}
+                    </div>
                 </div>
             </div>
         );
